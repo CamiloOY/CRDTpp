@@ -13,11 +13,8 @@ public:
 		return std::accumulate(payload.value().begin(), payload.value().end(), 0);
 	};
 	void merge(const GCounter& other) {
-		payload.merge(other.getPayload());
+		payload.merge(other.payload);
 	};
-	const IntVector<size>& getPayload() const {
-		return payload;
-	}
 
 private:
 	IntVector<size> payload;

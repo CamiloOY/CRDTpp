@@ -15,14 +15,8 @@ public:
 		return inc_counter.value() - dec_counter.value();
 	};
 	void merge(const PNCounter& other) {
-		inc_counter.merge(other.getIncCounter());
-		dec_counter.merge(other.getDecCounter());
-	}
-	const GCounter<size>& getIncCounter() const {
-		return inc_counter;
-	};
-	const GCounter<size>& getDecCounter() const {
-		return dec_counter;
+		inc_counter.merge(other.inc_counter);
+		dec_counter.merge(other.dec_counter);
 	}
 
 private:

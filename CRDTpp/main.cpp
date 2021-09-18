@@ -3,6 +3,7 @@
 #include "GCounter.h"
 #include "PNCounter.h"
 #include "GSet.h"
+#include "TwoPhaseSet.h"
 
 using namespace std;
 
@@ -63,7 +64,7 @@ int main() {
 	std::cout << counter.value() << '\n';*/
 
 	// GSet testing
-	GSet<int> a;
+	/*GSet<int> a;
 	a.add(1);
 	a.add(2);
 	a.add(3);
@@ -90,6 +91,47 @@ int main() {
 	for(int x : b.value()) {
 		std::cout << x << ',';
 	}
-	std::cout << "}\n";
+	std::cout << "}\n";*/
+
+	// 2PSet testing
+	TwoPhaseSet<int> a;
+	a.add(1);
+	a.add(2);
+	a.add(3);
+	for(int x : a.value()) {
+		std::cout << x << ',';
+	}
+	std::cout << '\n';
+
+	a.remove(1); // Test remove
+	for(int x : a.value()) {
+		std::cout << x << ',';
+	}
+	std::cout << '\n';
+
+	TwoPhaseSet<int> b;
+	b.add(5);
+	b.add(6);
+	b.add(7);
+	a.merge(b);
+	for(int x : a.value()) {
+		std::cout << x << ',';
+	}
+	std::cout << '\n';
+
+	b.add(1);
+	b.merge(a);
+	for(int x : b.value()) { // 1 isn't in the output since it has been removed from set A
+		std::cout << x << ',';
+	}
+	std::cout << '\n';
+
+	b.add(4);
+	a.remove(4);
+	a.merge(b);
+	for(int x : a.value()) { // 4 is in the output, even though we tried to remove it from A. This is because removes only work if the element has already been added
+		std::cout << x << ',';
+	}
+	std::cout << '\n';
 	return 0;
 }
