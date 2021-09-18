@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GCounter.h" />
+    <ClInclude Include="GSet.h" />
     <ClInclude Include="IntVector.h" />
     <ClInclude Include="PNCounter.h" />
   </ItemGroup>
