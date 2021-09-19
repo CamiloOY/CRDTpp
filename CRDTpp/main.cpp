@@ -4,6 +4,7 @@
 #include "PNCounter.h"
 #include "GSet.h"
 #include "TwoPhaseSet.h"
+#include "LWWSet.h"
 
 using namespace std;
 
@@ -94,7 +95,7 @@ int main() {
 	std::cout << "}\n";*/
 
 	// 2PSet testing
-	TwoPhaseSet<int> a;
+	/*TwoPhaseSet<int> a;
 	a.add(1);
 	a.add(2);
 	a.add(3);
@@ -129,7 +130,32 @@ int main() {
 	b.add(4);
 	a.remove(4);
 	a.merge(b);
-	for(int x : a.value()) { // 4 is in the output, even though we tried to remove it from A. This is because removes only work if the element has already been added
+	for(int x : a.value()) { // 4 is in the output, even though we tried to remove it from A. This is because removes only apply if the element has already been added
+		std::cout << x << ',';
+	}
+	std::cout << '\n';*/
+
+	// LWWSet testing
+	LWWSet<int> a;
+	int a_timestamp = 0;
+	a.add(1, a_timestamp++);
+	a.add(2, a_timestamp++);
+	a.add(3, a_timestamp++);
+	a.remove(3, a_timestamp++);
+	for(const auto& x : a.value()) {
+		std::cout << x << ',';
+	}
+	std::cout << '\n';
+
+	LWWSet<int> b;
+	int b_timestamp = 0;
+	b.remove(2, b_timestamp++); // This remove doesn't work since the remove happened before the add (at A)
+	b.add(6, b_timestamp++);
+	b.add(7, b_timestamp++);
+	b.remove(1, b_timestamp++);
+	b.add(3, b_timestamp++); // Since this add happens after 3 was removed from A, 3 appears in the merged output
+	a.merge(b);
+	for(const auto& x : a.value()) {
 		std::cout << x << ',';
 	}
 	std::cout << '\n';
