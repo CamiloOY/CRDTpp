@@ -5,6 +5,7 @@
 #include "GSet.h"
 #include "TwoPhaseSet.h"
 #include "LWWSet.h"
+#include "ORSet.h"
 
 using namespace std;
 
@@ -136,7 +137,7 @@ int main() {
 	std::cout << '\n';*/
 
 	// LWWSet testing
-	LWWSet<int> a;
+	/*LWWSet<int> a;
 	int a_timestamp = 0;
 	a.add(1, a_timestamp++);
 	a.add(2, a_timestamp++);
@@ -158,6 +159,64 @@ int main() {
 	for(const auto& x : a.value()) {
 		std::cout << x << ',';
 	}
-	std::cout << '\n';
+	std::cout << '\n';*/
+
+	// ORSet testing
+	ORSet<int> a;
+	auto a_add_1 = a.add(3);
+	auto a_add_2 = a.add(5);
+	auto a_add_3 = a.add(7);
+	auto a_remove_1 = a.remove(5);
+	for(int x : a.value()) {
+		cout << x << ", ";
+	}
+	cout << '\n';
+	ORSet<int> b;
+	b.mergeAdd(a_add_1);
+	b.mergeAdd(a_add_2);
+	b.mergeAdd(a_add_3);
+	b.mergeRemove(a_remove_1);
+	for(int x : b.value()) {
+		cout << x << ", ";
+	}
+	cout << '\n';
+	auto b_remove_1 = b.remove(7);
+	for(int x : b.value()) {
+		cout << x << ", ";
+	}
+	cout << '\n';
+	a.mergeRemove(b_remove_1);
+	for(int x : a.value()) {
+		cout << x << ", ";
+	}
+	cout << '\n';
+
+	auto a_add_4 = a.add(6);
+	b.mergeAdd(a_add_4);
+	auto a_add_5 = a.add(6);
+	auto b_remove_2 = b.remove(6);
+	b.mergeAdd(a_add_5);
+	a.mergeRemove(b_remove_2);
+	for(int x : b.value()) { // Add wins in the case of concurrent adds and removes
+		cout << x << ", ";
+	}
+	cout << '\n';
+	a.mergeRemove(b_remove_1);
+	for(int x : a.value()) {
+		cout << x << ", ";
+	}
+	cout << '\n';
+
+	auto a_add_6 = a.add(12);
+	auto a_add_7 = a.add(12);
+	for(int x : a.value()) { // Can add an element twice but it only appears in output once
+		cout << x << ", ";
+	}
+	cout << '\n';
+	auto a_remove_2 = a.remove(12); // Remove only needs to be called once
+	for(int x : a.value()) {
+		cout << x << ", ";
+	}
+	cout << '\n';
 	return 0;
 }

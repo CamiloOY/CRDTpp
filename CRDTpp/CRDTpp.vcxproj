@@ -143,6 +143,7 @@
     <ClInclude Include="GSet.h" />
     <ClInclude Include="IntVector.h" />
     <ClInclude Include="LWWSet.h" />
+    <ClInclude Include="ORSet.h" />
     <ClInclude Include="PNCounter.h" />
     <ClInclude Include="TwoPhaseSet.h" />
   </ItemGroup>
