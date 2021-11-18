@@ -97,7 +97,7 @@ public:
 
 	std::string value() {
 		std::string value = "";
-		for(auto itr = payload.begin(); itr != payload.end(); itr++) {
+		for(auto itr = ++payload.begin(); itr != payload.end(); itr++) {
 			if(itr->first) {
 				value.push_back(itr->first);
 			}
