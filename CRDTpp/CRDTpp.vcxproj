@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +146,7 @@
     <ClInclude Include="LWWSet.h" />
     <ClInclude Include="ORSet.h" />
     <ClInclude Include="PNCounter.h" />
+    <ClInclude Include="RGA.h" />
     <ClInclude Include="TwoPhaseSet.h" />
   </ItemGroup>
   <ItemGroup>

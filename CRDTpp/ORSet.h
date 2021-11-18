@@ -10,7 +10,6 @@ template<typename T>
 class ORSet {
 public:
 	ORSet() :dist(0, 4294967295), engine(std::time(0)) {
-
 	}
 	std::pair<T, unsigned int> add(const T elem) {
 		int id = dist(engine);

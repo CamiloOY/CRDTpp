@@ -6,6 +6,7 @@
 #include "TwoPhaseSet.h"
 #include "LWWSet.h"
 #include "ORSet.h"
+#include "RGA.h"
 
 using namespace std;
 
@@ -162,7 +163,7 @@ int main() {
 	std::cout << '\n';*/
 
 	// ORSet testing
-	ORSet<int> a;
+	/*ORSet<int> a;
 	auto a_add_1 = a.add(3);
 	auto a_add_2 = a.add(5);
 	auto a_add_3 = a.add(7);
@@ -217,6 +218,24 @@ int main() {
 	for(int x : a.value()) {
 		cout << x << ", ";
 	}
-	cout << '\n';
+	cout << '\n';*/
+
+	// RGA testing
+	RGA a(1);
+	RGA b(2);
+	auto a_add_1 = a.addRight({-1, {2147483647, 2147483647}}, 'C');
+	b.mergeAddRight(a_add_1);
+	auto b_add_1 = b.addRight(a_add_1.second, 'r');
+	auto a_add_2 = a.addRight(a_add_1.second, 'a');
+	auto a_add_3 = a.addRight(a_add_2.second, 'm');
+	a.mergeAddRight(b_add_1);
+	b.mergeAddRight(a_add_2);
+	b.mergeAddRight(a_add_3);
+	std::cout << a.value();
+	std::cout << b.value();
+	std::cout << '\n';
+	a.debug();
+	std::cout << '\n';
+	b.debug();
 	return 0;
 }
