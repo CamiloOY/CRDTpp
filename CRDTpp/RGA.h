@@ -26,7 +26,6 @@ public:
 	}
 };
 
-//template<typename T>
 using vertex = std::pair<char, timestamp>;
 
 class RGA {
@@ -54,6 +53,7 @@ public:
 				return element;
 			}
 		}
+		throw "Element not found";
 	}
 
 	std::string value() const {
@@ -98,5 +98,6 @@ private:
 			payload.insert(payload.end(), element);
 			return {before, element};
 		}
+		throw "Could not find position to add vertex";
 	}
 };
