@@ -75,11 +75,7 @@ public:
 	}
 
 	void mergeRemove(vertex element) {
-		for(auto itr = payload.begin(); itr != payload.end(); itr++) {
-			if(*itr == element) {
-				itr->first = 0;
-			}
-		}
+		this->remove(element);
 	}
 
 	void debug() {
