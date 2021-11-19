@@ -18,6 +18,9 @@ public:
 		inc_counter.merge(other.inc_counter);
 		dec_counter.merge(other.dec_counter);
 	}
+	bool operator<=(const PNCounter& other) const {
+		return inc_counter <= other.inc_counter && dec_counter <= other.dec_counter;
+	};
 
 private:
 	GCounter<size> inc_counter;

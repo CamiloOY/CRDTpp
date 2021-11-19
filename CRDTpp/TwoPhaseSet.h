@@ -26,6 +26,9 @@ public:
 		add_set.merge(other.add_set);
 		remove_set.merge(other.remove_set);
 	};
+	bool operator<=(const TwoPhaseSet& other) {
+		return add_set <= other.add_set && remove_set <= other.remove_set;
+	};
 
 private:
 	GSet<T> add_set;

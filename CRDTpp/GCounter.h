@@ -15,6 +15,9 @@ public:
 	void merge(const GCounter& other) {
 		payload.merge(other.payload);
 	};
+	bool operator<=(const GCounter& other) const {
+		return payload <= other.payload;
+	};
 
 private:
 	IntVector<size> payload;

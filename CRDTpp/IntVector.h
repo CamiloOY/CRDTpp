@@ -24,6 +24,14 @@ public:
 			payload[c] = std::max(payload[c], vec[c]);
 		}
 	};
+	bool operator<=(const IntVector& other) const {
+		for(int i = 0; i < size; i++) {
+			if(payload[i] > other.value()[i]) {
+				return false;
+			}
+		}
+		return true;
+	};
 
 private:
 	std::vector<int> payload;

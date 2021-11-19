@@ -44,6 +44,19 @@ public:
 			}
 		}
 	};
+	bool operator<=(const LWWSet& other) const {
+		for(auto it = add_set.cbegin(); it != add_set.cend(); it++) {
+			if(!other.add_set.count(*it)) {
+				return false;
+			}
+		}
+		for(auto itr = remove_set.cbegin(); itr != remove_set.cend(); itr++) {
+			if(!other.remove_set.count(*itr)) {
+				return false;
+			}
+		}
+		return true;
+	};
 
 private:
 	std::unordered_map<T, int> add_set;
