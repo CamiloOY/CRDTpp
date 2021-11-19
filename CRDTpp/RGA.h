@@ -46,44 +46,13 @@ public:
 	}
 
 	std::pair<vertex, vertex> addRight(vertex before, char atom) {
-		bool found_el = false;
 		vertex element = {atom, this->now()};
-		for(auto itr = payload.begin(); itr != payload.end(); itr++) {
-			if(itr->second == before.second) {
-				found_el = true;
-				continue;
-			}
-			if(found_el) {
-				if(itr->second < element.second) {
-					payload.insert(itr, element);
-					return {before, element};
-				}
-			}
-		}
-		if(found_el) {
-			payload.insert(payload.end(), element);
-			return {before, element};
-		}
+		return this->addVertexRight(before, element);
 	}
 
 	void mergeAddRight(std::pair<vertex, vertex> operation) { // Lots of duplication between this and addRight
-		bool found_el = false;
 		const auto [before, element] = operation;
-		for(auto itr = payload.begin(); itr != payload.end(); itr++) {
-			if(itr->second == before.second) {
-				found_el = true;
-				continue;
-			}
-			if(found_el) {
-				if(itr->second < element.second) {
-					payload.insert(itr, element);
-					return;
-				}
-			}
-		}
-		if(found_el) {
-			payload.insert(payload.end(), element);
-		}
+		this->addVertexRight(before, element);
 	}
 
 	vertex remove(vertex element) {
@@ -127,5 +96,25 @@ private:
 		timestamp now = ts;
 		ts.local_clock++;
 		return now;
+	}
+
+	std::pair<vertex, vertex> addVertexRight(vertex before, vertex element) {
+		bool found_el = false;
+		for(auto itr = payload.begin(); itr != payload.end(); itr++) {
+			if(itr->second == before.second) {
+				found_el = true;
+				continue;
+			}
+			if(found_el) {
+				if(itr->second < element.second) {
+					payload.insert(itr, element);
+					return {before, element};
+				}
+			}
+		}
+		if(found_el) {
+			payload.insert(payload.end(), element);
+			return {before, element};
+		}
 	}
 };
