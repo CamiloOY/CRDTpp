@@ -29,14 +29,6 @@ public:
 //template<typename T>
 using vertex = std::pair<char, timestamp>;
 
-template<typename T>
-class RGAInfo {
-public:
-	static T getBeginning();
-	static T getTombstone();
-};
-
-//template<typename T, typename Info = RGAInfo<T>>
 class RGA {
 public:
 	RGA(int id) {
@@ -64,9 +56,9 @@ public:
 		}
 	}
 
-	std::string value() {
+	std::string value() const {
 		std::string value = "";
-		for(auto itr = ++payload.begin(); itr != payload.end(); itr++) {
+		for(auto itr = ++payload.cbegin(); itr != payload.cend(); itr++) {
 			if(itr->first) {
 				value.push_back(itr->first);
 			}
@@ -76,12 +68,6 @@ public:
 
 	void mergeRemove(vertex element) {
 		this->remove(element);
-	}
-
-	void debug() {
-		for(auto itr = payload.begin(); itr != payload.end(); itr++) {
-			std::cout << '(' << itr->first << ',' << itr->second.local_clock << '.' << itr->second.id << ')';
-		}
 	}
 
 private:
